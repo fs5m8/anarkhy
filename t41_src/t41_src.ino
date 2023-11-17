@@ -8,6 +8,7 @@ char* content = (char*)calloc((size_t)4096, sizeof(char));
 DynamicJsonDocument jcontent(500);
 
 void loadFile(char* fdp, char* path);
+void executeProgram(void);
 
 void setup() {
   Serial.begin(115200);
@@ -28,6 +29,8 @@ void setup() {
     if (content != NULL) free(content);
     return;
   }
+
+  executeProgram();
   
   if (content != NULL) free(content);
 }
@@ -50,4 +53,22 @@ void loadFile(char* content, char* path) {
   Serial.printf("%u bytes readed\n", len);
   file.close();
   return;
+}
+
+void executeProgram(void) {
+  int i = 0;
+  while (1) {
+    String inst = jcontent[String(i)]["inst"];
+    if (inst == "end") break;
+    else if (inst == "feed") {
+      double value = jcontent[String(i)]["value"];
+    }
+    else if (inst == "drill") {
+    }
+    else if (inst == "cut") {
+    }
+    else {
+    }
+    i++;
+  }
 }
